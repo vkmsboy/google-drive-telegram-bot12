@@ -158,7 +158,7 @@ class GoogleDrive:
       try:
         uploaded_file = self.__service.files().create(body=body, media_body=media_body, fields='id', supportsTeamDrives=True).execute()
         file_id = uploaded_file.get('id')
-        return Messages.UPLOADED_SUCCESSFULLY.format(filename, self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file_id), filesize)
+        return Messages.UPLOADED_SUCCESSFULLY.format(self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file_id))
       except HttpError as err:
         if err.resp.get('content-type', '').startswith('application/json'):
           reason = json.loads(err.content).get('error').get('errors')[0].get('reason')
